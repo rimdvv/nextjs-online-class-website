@@ -36,8 +36,8 @@ model Category {
   courses Course[]
 }
 
-model Attachment{
-  id String @id @default(uuid()) 
+model Attachment {
+  id String @id @default(uuid())
   name String
   url String @db.Text
 
@@ -50,8 +50,8 @@ model Attachment{
   @@index([courseId])
 }
 
-model Chapter{
-  id String @id @default(uuid()) 
+model Chapter {
+  id String @id @default(uuid())
   title String
   description String? @db.Text
   videoUrl String? @db.Text
@@ -73,21 +73,20 @@ model Chapter{
 }
 
 model MuxData {
-  id String @id @default(uuid()) 
+  id String @id @default(uuid())
   assetId String
   playbackId String?
 
   chapterId String @unique
-  course Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
-  
+  chapter Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
 }
 
-model UserProgress{
-  id String @id @default(uuid()) 
+model UserProgress {
+  id String @id @default(uuid())
   userId String
 
-  chapterId String @unique
-  course Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  chapterId String
+  chapter Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
 
   isCompleted Boolean @default(false)
 
@@ -99,20 +98,21 @@ model UserProgress{
 }
 
 model Purchase {
-  id String @id @default(uuid()) 
+  id String @id @default(uuid())
   userId String
 
   courseId String
   course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @updatedAt()
 
+  @@unique([userId, courseId])
   @@index([courseId])
 }
 
-model StripeCustomer{
-  id String @id @default(uuid()) 
+model StripeCustomer {
+  id String @id @default(uuid())
   userId String @unique
   stripeCustomerId String @unique
 

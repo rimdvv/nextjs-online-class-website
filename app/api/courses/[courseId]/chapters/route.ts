@@ -1,6 +1,7 @@
-import { db } from '@/lib/db';
 import { auth } from '@clerk/nextjs';
 import { NextResponse } from 'next/server';
+
+import { db } from '@/lib/db';
 
 export async function POST(
   req: Request,
@@ -34,7 +35,7 @@ export async function POST(
       },
     });
 
-    const newPosition = lastChapter ? lastChapter.position + 1 : 1;
+    const newPosition = lastChapter ? lastChapter.position + 1 : 0;
 
     const chapter = await db.chapter.create({
       data: {
@@ -46,7 +47,7 @@ export async function POST(
 
     return NextResponse.json(chapter);
   } catch (error) {
-    console.log(['CHAPTERS'], error);
+    console.log('[CHAPTERS]', error);
     return new NextResponse('Internal Error', { status: 500 });
   }
 }
