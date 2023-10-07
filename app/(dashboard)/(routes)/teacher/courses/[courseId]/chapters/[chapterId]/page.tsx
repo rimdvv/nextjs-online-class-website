@@ -3,9 +3,11 @@ import { auth } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
 
 import Link from 'next/link';
-import { ArrowLeft, LayoutDashboard } from 'lucide-react';
+import { ArrowLeft, Eye, LayoutDashboard } from 'lucide-react';
 import { IconBadge } from '@/components/icon-badge';
 import ChapterTitleForm from './_components/chapter-title-form';
+import ChapterDescriptionForm from './_components/chapter-description-form';
+import ChapterAccessForm from './_components/chapter-access-form';
 
 const ChapterIdPage = async ({
   params,
@@ -56,16 +58,34 @@ const ChapterIdPage = async ({
           </span>
         </div>
         <div className='grid mt-16 grid-cols-1 gap-6 md:grid-cols-2'>
-          <div>
-            <div className='flex items-center gap-2'>
-              <IconBadge icon={LayoutDashboard} />
-              <h1 className='text-xl'>Customize your chapter</h1>
+          <div className='space-y-6'>
+            <div>
+              <div className='flex items-center gap-2'>
+                <IconBadge icon={LayoutDashboard} />
+                <h1 className='text-xl'>Customize your chapter</h1>
+              </div>
+              <ChapterTitleForm
+                initialData={chapter}
+                courseId={params.courseId}
+                chapterId={params.chapterId}
+              />
+              <ChapterDescriptionForm
+                initialData={chapter}
+                courseId={params.courseId}
+                chapterId={params.chapterId}
+              />
             </div>
-            <ChapterTitleForm
-              initialData={chapter}
-              courseId={params.courseId}
-              chapterId={params.chapterId}
-            />
+            <div>
+              <div className='flex items-center gap-2'>
+                <IconBadge icon={Eye} />
+                <h1 className='text-xl'>Access Settings</h1>
+              </div>
+              <ChapterAccessForm
+                initialData={chapter}
+                courseId={params.courseId}
+                chapterId={params.chapterId}
+              />
+            </div>
           </div>
         </div>
       </div>
