@@ -22,6 +22,8 @@ const SidebarItem = ({ icon: Icon, label, href }: SidebarItemProps) => {
   const onClick = () => {
     router.push(href);
   };
+  // console.log('href', href);
+  // console.log('pathname', pathname);
   return (
     <button
       onClick={onClick}
