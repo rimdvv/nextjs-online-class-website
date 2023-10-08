@@ -23,11 +23,6 @@ const teacherRoutes = [
     label: 'Courses',
     href: '/teacher/courses',
   },
-  {
-    icon: BarChart,
-    label: 'Analytics',
-    href: '/teacher/analytics',
-  },
 ];
 
 const SidebarRoutes = () => {
@@ -36,7 +31,7 @@ const SidebarRoutes = () => {
   const isTeacherPage = pathname?.includes('/teacher');
   const routes = isTeacherPage ? teacherRoutes : guestRoutes;
   return (
-    <div>
+    <div className='flex flex-col w-full'>
       {routes.map((route) => (
         <SidebarItem
           key={route.href}

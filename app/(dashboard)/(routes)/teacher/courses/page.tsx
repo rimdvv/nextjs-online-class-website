@@ -23,10 +23,8 @@ const CoursesPage = async () => {
   });
 
   return (
-    <div className='p-6'>
-      <div className='container mx-auto py-10'>
-        <DataTable columns={columns} data={courses} />
-      </div>
+    <div className='container mx-auto py-10'>
+      <DataTable columns={columns} data={courses} />
     </div>
   );
 };
